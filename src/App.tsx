@@ -1,5 +1,14 @@
+import { Route, Routes } from "react-router-dom";
+import HomePage from "./app/dashboard/page";
+
 function App() {
-  return <h1>School System</h1>;
+  return (
+    <>
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+      </Routes>
+    </>
+  );
 }
 
 export default App;
