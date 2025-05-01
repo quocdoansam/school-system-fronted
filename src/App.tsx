@@ -1,15 +1,15 @@
 import { Route, Routes } from "react-router-dom";
-import HomePage from "./app/dashboard/page";
-import LoginPage from "./app/login/page";
+import Home from "./pages";
+import Header from "./components/Header";
 
 function App() {
   return (
-    <>
+    <div className='max-w-7xl mx-auto px-4'>
+      <Header />
       <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/auth/login' element={<LoginPage />} />
+        <Route path='/' element={<Home />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
