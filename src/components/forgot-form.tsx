@@ -42,7 +42,7 @@ export function ForgotForm({
               </div>
             </div>
             <div className='mt-4 text-center text-sm'>
-              <a href='/' className='hover:underline underline-offset-4'>
+              <a href='/login' className='hover:underline underline-offset-4'>
                 Back to the login page
               </a>
             </div>
