@@ -1,7 +1,7 @@
 import HeaderNav from "./header-nav";
 import Logo from "./landing/logo";
 import { ModeToggle } from "./mode-toggle";
-import UserNav from "./UserNav";
+import UserNav from "./user-nav";
 
 const Header = () => {
   return (

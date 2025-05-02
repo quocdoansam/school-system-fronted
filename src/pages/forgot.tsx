@@ -1,0 +1,13 @@
+import { ForgotForm } from "@/components/forgot-form";
+
+const ForgotPage = () => {
+  return (
+    <div className='flex min-h-svh w-full items-center justify-center p-6 md:p-10'>
+      <div className='w-full max-w-sm'>
+        <ForgotForm />
+      </div>
+    </div>
+  );
+};
+
+export default ForgotPage;
