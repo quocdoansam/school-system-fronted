@@ -7,14 +7,14 @@ const useLogin = () => {
   const [error, setError] = useState<string | null>(null);
   const { refetchUser } = useAuth();
 
-  const login = async (id: string, passsword: string) => {
+  const login = async (id: string, password: string) => {
     setIsLoading(true);
     setError(null);
 
     try {
       await axios.post(
         "http://localhost:9000/api/auth/token",
-        { id, passsword },
+        { id: id, password: password },
         { withCredentials: true }
       );
       await refetchUser();

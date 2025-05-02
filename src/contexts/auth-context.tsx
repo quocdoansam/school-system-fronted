@@ -15,7 +15,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const getMe = async () => {
     try {
       const res = await axios.get("http://localhost:9000/api/me", { withCredentials: true });
-      setUser(res.data);
+      setUser(res.data.data);
     } catch (error) {
       setUser(null);
     } finally {

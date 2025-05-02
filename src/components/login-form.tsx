@@ -9,11 +9,30 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import useLogin from "@/hooks/useLogin";
+import { useAuth } from "@/contexts/auth-context";
+import { useNavigate } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const { login, isLoading, error } = useLogin();
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("ID: " + id + "| Password: " + password);
+    await login(id, password);
+    if (isAuthenticated) navigate("/");
+  }
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -24,7 +43,7 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className='flex flex-col gap-6'>
               <div className='grid gap-3'>
                 <Label htmlFor='email'>ID</Label>
@@ -32,6 +51,8 @@ export function LoginForm({
                   id='id'
                   type='text'
                   placeholder='Enter your ID'
+                  value={id}
+                  onChange={(e) => setId(e.target.value)}
                   required
                 />
               </div>
@@ -49,12 +70,15 @@ export function LoginForm({
                   id='password'
                   type='password'
                   placeholder='Enter password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
+              {error && <p style={{ color: "red" }}>{error}</p>}
               <div className='flex flex-col gap-3'>
                 <Button type='submit' className='w-full'>
-                  Login
+                  {isLoading ? <Loader2 className="animate-spin" /> : "Login"}
                 </Button>
               </div>
             </div>
