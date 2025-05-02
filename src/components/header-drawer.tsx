@@ -1,66 +1,47 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuPortal,
-    DropdownMenuSeparator,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Navbar } from "@/types/navbar";
 import { Menu } from "lucide-react";
+import { Link } from "react-router-dom";
 
-export function HeaderDrawer() {
-    return (
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button variant={"outline"} className='cursor-pointer' size={"icon"}>
-                    <Menu />
-                </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className='w-56' align='start'>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                    <DropdownMenuItem
-                        onClick={() => {
-                        }}
-                    >
-                        Profile
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>Billing</DropdownMenuItem>
-                    <DropdownMenuItem>Settings</DropdownMenuItem>
-                    <DropdownMenuItem>Keyboard shortcuts</DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                    <DropdownMenuItem>Team</DropdownMenuItem>
-                    <DropdownMenuSub>
-                        <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
-                        <DropdownMenuPortal>
-                            <DropdownMenuSubContent>
-                                <DropdownMenuItem>Email</DropdownMenuItem>
-                                <DropdownMenuItem>Message</DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>More...</DropdownMenuItem>
-                            </DropdownMenuSubContent>
-                        </DropdownMenuPortal>
-                    </DropdownMenuSub>
-                    <DropdownMenuItem>New Team</DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>GitHub</DropdownMenuItem>
-                <DropdownMenuItem>Support</DropdownMenuItem>
-                <DropdownMenuItem disabled>API</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Log out</DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
-    )
+interface HeaderDrawerProps {
+  navbars: Navbar[];
+}
+
+export function HeaderDrawer({ navbars }: HeaderDrawerProps) {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant={"outline"} className='cursor-pointer' size={"icon"}>
+          <Menu />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className='w-56' align='start'>
+        <DropdownMenuLabel>Edura Menu</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        {navbars.map((group, groupIndex) => (
+          <>
+            <DropdownMenuGroup key={groupIndex}>
+              {group.items.map((item, itemIndex) => (
+                <DropdownMenuItem key={itemIndex} asChild>
+                  <Link to={item.href}>{item.name}</Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuGroup>
+            {groupIndex !== navbars.length - 1 && <DropdownMenuSeparator />}
+          </>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 }
