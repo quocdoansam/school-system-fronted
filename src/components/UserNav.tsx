@@ -26,7 +26,7 @@ const UserNav = () => {
           Admin
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='w-56' side='left'>
+      <DropdownMenuContent className='w-56' align='end'>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>

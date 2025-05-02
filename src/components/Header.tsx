@@ -1,6 +1,6 @@
-import HeaderNav from "./HeaderNav";
-import Logo from "./Logo";
-import { ModeToggle } from "./ModeToggle";
+import HeaderNav from "./header-nav";
+import Logo from "./landing/logo";
+import { ModeToggle } from "./mode-toggle";
 import UserNav from "./UserNav";
 
 const Header = () => {
