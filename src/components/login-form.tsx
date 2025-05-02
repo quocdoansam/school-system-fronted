@@ -11,9 +11,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import useLogin from "@/hooks/useLogin";
-import { useAuth } from "@/contexts/auth-context";
 import { useNavigate } from "react-router-dom";
-import { Loader2 } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 
 export function LoginForm({
   className,
@@ -23,14 +23,12 @@ export function LoginForm({
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const { login, isLoading, error } = useLogin();
-  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("ID: " + id + "| Password: " + password);
-    await login(id, password);
-    if (isAuthenticated) navigate("/");
+    const success = await login(id, password);
+    if (success) navigate("/");
   }
 
   return (
@@ -75,7 +73,13 @@ export function LoginForm({
                   required
                 />
               </div>
-              {error && <p style={{ color: "red" }}>{error}</p>}
+              {error && <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
+                <AlertTitle>Error</AlertTitle>
+                <AlertDescription>
+                  {error}
+                </AlertDescription>
+              </Alert>}
               <div className='flex flex-col gap-3'>
                 <Button type='submit' className='w-full'>
                   {isLoading ? <Loader2 className="animate-spin" /> : "Login"}

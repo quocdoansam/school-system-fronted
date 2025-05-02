@@ -18,12 +18,14 @@ const useLogin = () => {
         { withCredentials: true }
       );
       await refetchUser();
+      return true;
     } catch (err: any) {
       if (axios.isAxiosError(err)) {
         setError(err.response?.data?.message || "Login failed.");
       } else {
         setError("Unknown Error");
       }
+      return false;
     } finally {
       setIsLoading(false);
     }
