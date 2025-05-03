@@ -1,4 +1,4 @@
-import { ForgotForm } from "@/components/forgot-form";
+import { ForgotForm } from "@/components/ForgotForm";
 
 const ForgotPage = () => {
   return (

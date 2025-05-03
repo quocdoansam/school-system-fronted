@@ -1,9 +1,9 @@
-import HeaderNav from "./header-nav";
+import HeaderNav from "./HeaderNav";
 import Logo from "./landing/logo";
-import { ModeToggle } from "./mode-toggle";
-import UserNav from "./user-nav";
+import { ModeToggle } from "./ModeToggle";
+import UserNav from "./UserNav";
 import { useIsMobile } from "@/hooks/useMobile";
-import { HeaderDrawer } from "./header-drawer";
+import { HeaderDrawer } from "./HeaderDrawer";
 
 const Header = () => {
   const isMobile = useIsMobile();

@@ -1,9 +1,9 @@
-import { Role } from "./role";
+import { Role } from "./Role";
 
 export type User = {
-    id: String;
-    name: String;
-    email: String;
-    role: Role;
-    token: String;
-}
+  id: String;
+  name: String;
+  email: String;
+  roles: Role;
+  token: String;
+};

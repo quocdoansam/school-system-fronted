@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Navbar } from "@/types/navbar";
+import { Navbar } from "@/types/Navbar";
 import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
 

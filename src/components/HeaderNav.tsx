@@ -7,7 +7,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { Navbar } from "@/types/navbar";
+import { Navbar } from "@/types/Navbar";
 import { Link } from "react-router-dom";
 
 interface HeaderNavProps {

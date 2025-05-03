@@ -1,8 +1,8 @@
-import MainLayout from "@/layouts/main-layout";
-import NoHeaderLayout from "@/layouts/no-header-layout";
+import MainLayout from "@/layouts/MainLayout";
+import NoHeaderLayout from "@/layouts/NoHeaderLayout";
 import HomePage from "@/pages";
-import ForgotPage from "@/pages/forgot";
-import LoginPage from "@/pages/login";
+import ForgotPage from "@/pages/ForgotPage";
+import LoginPage from "@/pages/LoginPage";
 import { Route, Routes } from "react-router-dom";
 
 const AppRouter = () => {

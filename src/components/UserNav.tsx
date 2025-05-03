@@ -8,24 +8,37 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/auth-context";
 import { Skeleton } from "./ui/skeleton";
+import { Avatar, AvatarFallback } from "./ui/avatar";
+import React from "react";
 
 const UserNav = () => {
-  const { user, isLoading, isAuthenticated, logout } = useAuth();
-  const navigate = useNavigate();
+  const { user, isLoading, isAuthenticated, logout, hasRole } = useAuth();
 
   const items = [
     [
-      { name: "My Profile", action: () => navigate("/profile") },
-      { name: "My courses", action: () => navigate("/course") },
+      { name: "My Profile", href: "/profile" },
+      ...(hasRole("STUDENT") ? [{ name: "My courses", href: "/course" }] : []),
     ],
     [
-      { name: "Settings", action: () => navigate("/settings") },
-      { name: "Support", action: () => navigate("/support") },
+      { name: "Settings", href: "/settings" },
+      { name: "Support", href: "/support" },
     ],
-    [{ name: "Logout", action: () => logout() }],
+    ...(hasRole("ADMIN")
+      ? [
+          [
+            { name: "Admin Dashboard", href: "/admin" },
+            { name: "Manage Users", href: "/admin/users" },
+          ],
+        ]
+      : [
+          [
+            { name: "Not Admin Dashboard", href: "/admin" },
+            { name: "Manage Users", href: "/admin/users" },
+          ],
+        ]),
   ];
 
   if (isLoading) {
@@ -36,28 +49,30 @@ const UserNav = () => {
       {isAuthenticated ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant={"default"} className='cursor-pointer'>
-              {user?.name}
-            </Button>
+            <Avatar className='w-9 h-9'>
+              <AvatarFallback className='bg-red-400 cursor-pointer'>
+                {user?.name.charAt(0).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent className='w-56' align='end'>
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>{`Hi, ${user?.name}`}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             {items.map((group, groupIndex) => (
-              <>
-                <DropdownMenuGroup key={groupIndex}>
+              <React.Fragment key={groupIndex}>
+                <DropdownMenuGroup>
                   {group.map((item, itemIndex) => (
                     <DropdownMenuItem
                       className='cursor-pointer'
                       key={itemIndex}
-                      onClick={() => item.action()}
+                      asChild
                     >
-                      {item.name}
+                      <Link to={item.href}>{item.name}</Link>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuGroup>
                 {groupIndex !== items.length - 1 && <DropdownMenuSeparator />}
-              </>
+              </React.Fragment>
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
