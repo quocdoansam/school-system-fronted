@@ -58,6 +58,21 @@ const Header = () => {
         },
       ],
     },
+    {
+      title: "Enrollment",
+      items: [
+        {
+          name: "Courses 1",
+          href: "/course-1",
+          desc: "lorem lorem lorem lorem lorem lorem lorem lorem",
+        },
+        {
+          name: "Courses 2",
+          href: "/course-2",
+          desc: "lorem lorem lorem lorem lorem lorem lorem lorem",
+        },
+      ],
+    },
   ];
   return (
     <header className='flex flex-row justify-between py-4'>
