@@ -33,12 +33,7 @@ const UserNav = () => {
             { name: "Manage Users", href: "/admin/users" },
           ],
         ]
-      : [
-          [
-            { name: "Not Admin Dashboard", href: "/admin" },
-            { name: "Manage Users", href: "/admin/users" },
-          ],
-        ]),
+      : []),
   ];
 
   if (isLoading) {
@@ -74,6 +69,15 @@ const UserNav = () => {
                 {groupIndex !== items.length - 1 && <DropdownMenuSeparator />}
               </React.Fragment>
             ))}
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuItem
+                className='cursor-pointer'
+                onClick={() => logout()}
+              >
+                Log out
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
