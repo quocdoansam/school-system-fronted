@@ -1,43 +1,41 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import axios, { AxiosRequestConfig } from "axios";
 
-export function useFetch<T = unknown>(url: string, options?: RequestInit) {
-    const [data, setData] = useState<T | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<Error | null>(null);
+interface FetchState<T> {
+  data: T | null;
+  error: string | null;
+  loading: boolean;
+  refetch: () => void;
+}
 
-    useEffect(() => {
-        let isMounted = true;
-        setLoading(true);
-        setError(null);
+export function useFetch<T = unknown>(
+  url: string,
+  config?: AxiosRequestConfig
+): FetchState<T> {
+  const [data, setData] = useState<T | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [trigger, setTrigger] = useState<number>(0);
 
-        fetch(url, options)
-            .then(async (res) => {
-                if (!res.ok) {
-                    const text = await res.text();
-                    throw new Error(text || `Error: ${res.status}`);
-                }
-                return res.json();
-            })
-            .then((data) => {
-                if (isMounted) {
-                    setData(data);
-                }
-            })
-            .catch((err) => {
-                if (isMounted) {
-                    setError(err);
-                }
-            })
-            .finally(() => {
-                if (isMounted) {
-                    setLoading(false);
-                }
-            });
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+    setError(null);
 
-        return () => {
-            isMounted = false;
-        };
-    }, [url]);
+    try {
+      const response = await axios.get<T>(url, config);
+      setData(response.data);
+    } catch (err: any) {
+      setError(err.response?.data?.message || err.message || "Unknown error");
+    } finally {
+      setLoading(false);
+    }
+  }, [url, config]);
 
-    return { data, loading, error };
+  useEffect(() => {
+    fetchData();
+  }, [fetchData, trigger]);
+
+  const refetch = () => setTrigger((prev) => prev + 1);
+
+  return { data, error, loading, refetch };
 }
