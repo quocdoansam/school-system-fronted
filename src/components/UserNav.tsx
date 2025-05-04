@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
-import { useAuth } from "@/contexts/auth-context";
+import { useAuth } from "@/contexts/AuthContext";
 import { Skeleton } from "./ui/skeleton";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import React from "react";
